@@ -2,9 +2,6 @@
 let todo = '[ ]';
 let done = '[x]';
 
-// Fill this array with UUIDs of your daily tasks
-let drafts = [];
-
 // ---- Libraries --------------------------------------------------------------
 
 /*
@@ -140,9 +137,7 @@ date.setDate(date.getDate() - 1);
 
 let datestr = date.format('ddd dd/mm/yy').toLowerCase();
 
-for (let uuid of drafts) {
-    let task = Draft.find(uuid);
-
+for (let task of Draft.query('', 'inbox', ['daily-task'])) {
     let lines = task.lines;
     lines[0] = lines[0].replace(done, todo);
     let content_new = lines.join('\n');
