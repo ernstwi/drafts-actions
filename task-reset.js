@@ -138,7 +138,7 @@ Date.prototype.format = function (mask, utc) {
 let date = new Date();
 date.setDate(date.getDate() - 1);
 
-let datestr = date.format('ddd dd/mm/yyyy').toLowerCase();
+let datestr = date.format('ddd dd/mm/yy').toLowerCase();
 
 for (let uuid of drafts) {
     let task = Draft.find(uuid);
