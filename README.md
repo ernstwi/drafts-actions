@@ -20,8 +20,8 @@ These actions are used for daily reminders. For each task, create a draft tagged
 
 The last paragraph is a record of past days. `[ ]` and `[x]` are used here for todo/done, this may be changed in the configuration section of each action. `task-done` is used to mark a particular task as completed. `task-reset` must be run every day to reset the tasks and log the previous day's result.
 
-## Tag list
+## Tag overview
 
-- `tag-list.js`
+- `tag-overview.js`
 
-List drafts for a configured set of tags.
+List drafts grouped by tags, for a given set of tags.
