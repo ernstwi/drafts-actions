@@ -145,6 +145,10 @@ for (let task of Draft.query('', 'inbox', ['daily-task'])) {
 
     content_new += '\n' + (content_new == task.content ? todo : done) + ' ' + datestr;
 
+    if (date.getDay() == 0) {
+        content_new += '\n';
+    }
+
     task.content = content_new;
     task.update();
 }
