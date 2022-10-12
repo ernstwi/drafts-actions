@@ -25,3 +25,9 @@ The last paragraph is a record of past days. `[ ]` and `[x]` are used here for t
 - `tag-overview.js`
 
 List drafts grouped by tags, for a given set of tags.
+
+## New draft from matching lines
+
+- `new-draft-from-matching-lines.js`
+
+Create a new draft by filtering all lines in the current draft by regular expression.
