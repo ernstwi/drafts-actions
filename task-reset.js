@@ -146,14 +146,11 @@ for (let task of Draft.query('', 'inbox', ['daily-task'])) {
         continue;
 
     lines[0] = lines[0].replace(done, todo);
-    let content_new = lines.join('\n');
-
-    content_new += '\n' + (content_new === task.content ? todo : done) + ' ' + datestr;
-
+    lines.push((lines[0] === task.lines[0] ? todo : done) + ' ' + datestr);
     if (date.getDay() === 0) {
-        content_new += '\n';
+        lines.push('');
     }
 
-    task.content = content_new;
+    task.content = lines.join('\n');
     task.update();
 }
