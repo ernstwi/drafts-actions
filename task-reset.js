@@ -133,10 +133,10 @@ Date.prototype.format = function (mask, utc) {
 
 // ---- Main -------------------------------------------------------------------
 
-let date = new Date();
-date.setDate(date.getDate() - 1);
+let ystrd = new Date();
+ystrd.setDate(ystrd.getDate() - 1);
 
-let datestr = date.format('ddd dd/mm/yy').toLowerCase();
+let ystrdStr = ystrd.format('ddd dd/mm/yy').toLowerCase();
 
 for (let task of Draft.query('', 'inbox', ['daily-task'])) {
     let lines = task.lines;
@@ -145,14 +145,14 @@ for (let task of Draft.query('', 'inbox', ['daily-task'])) {
     let recordStart = lines.findIndex(x => x === '---') + 2;
 
     // Guard against invoking action repeatedly on same day
-    if (lines[recordStart].endsWith(datestr))
+    if (lines[recordStart].endsWith(ystrdStr))
         continue;
 
-    let ystrdRecord = (lines[0].includes(done) ? done : todo) + ' ' + datestr;
+    let ystrdRecord = (lines[0].includes(done) ? done : todo) + ' ' + ystrdStr;
     lines.splice(recordStart, 0, ystrdRecord);
 
-    // If today is Monday, add a spacing line
-    if (date.getDay() === 1) {
+    // If yesterday was Monday, add a spacing line
+    if (ystrd.getDay() === 1) {
         lines.splice(recordStart + 1, 0, '');
     }
 
