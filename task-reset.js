@@ -141,19 +141,23 @@ let datestr = date.format('ddd dd/mm/yy').toLowerCase();
 for (let task of Draft.query('', 'inbox', ['daily-task'])) {
     let lines = task.lines;
 
+    // Get start of record indicated by `---` followed by a blank line
+    let recordStart = lines.findIndex(x => x === '---') + 2;
+
     // Guard against invoking action repeatedly on same day
-    if (lines[2].endsWith(datestr))
+    if (lines[recordStart].endsWith(datestr))
         continue;
 
-    lines[0] = lines[0].replace(done, todo);
-
-    let record = (lines[0] === task.lines[0] ? todo : done) + ' ' + datestr;
-    lines.splice(2, 0, record);
+    let ystrdRecord = (lines[0].includes(done) ? done : todo) + ' ' + datestr;
+    lines.splice(recordStart, 0, ystrdRecord);
 
     // If today is Monday, add a spacing line
     if (date.getDay() === 1) {
-        lines.splice(3, 0, '');
+        lines.splice(recordStart + 1, 0, '');
     }
+
+    // Reset today's state
+    lines[0] = lines[0].replace(done, todo);
 
     task.content = lines.join('\n');
     task.update();
