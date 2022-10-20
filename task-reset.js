@@ -136,6 +136,8 @@ Date.prototype.format = function (mask, utc) {
 let ystrd = new Date();
 ystrd.setDate(ystrd.getDate() - 1);
 
+let commentRegex = / \/\/.*$/;
+
 let ystrdStr = ystrd.format('ddd dd/mm/yy').toLowerCase();
 
 for (let task of Draft.query('', 'inbox', ['daily-task'])) {
@@ -149,6 +151,10 @@ for (let task of Draft.query('', 'inbox', ['daily-task'])) {
         continue;
 
     let ystrdRecord = (lines[0].includes(done) ? done : todo) + ' ' + ystrdStr;
+    let comment = lines[0].match(commentRegex)[0];
+    if (comment !== null)
+        ystrdRecord += comment;
+
     lines.splice(recordStart, 0, ystrdRecord);
 
     // If yesterday was Monday, add a spacing line
@@ -158,6 +164,7 @@ for (let task of Draft.query('', 'inbox', ['daily-task'])) {
 
     // Reset today's state
     lines[0] = lines[0].replace(done, todo);
+    lines[0] = lines[0].replace(commentRegex, '');
 
     task.content = lines.join('\n');
     task.update();

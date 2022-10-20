@@ -5,17 +5,17 @@
 - `task-done.js`
 - `task-reset.js`
 
-These actions are used for daily reminders. For each task, create a draft tagged `daily-task` on the following format:
+These actions are used for daily reminders. For each task, create a draft tagged `daily-task` on the following format (including whitespace):
 
 ```
-[ ] <Title of task>
+[ ] <Title of task> // <Optional comment>
 
 <Any other text over multiple lines>
 
 ---
 
 [ ] thu 29/09/22
-[x] wed 28/09/22
+[x] wed 28/09/22 // Comment
 [x] tue 27/09/22
 [ ] mon 26/09/22
 ```
