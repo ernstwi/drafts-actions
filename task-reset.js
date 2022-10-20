@@ -143,7 +143,7 @@ for (let task of Draft.query('', 'inbox', ['daily-task'])) {
 
     // Guard against invoking action repeatedly on same day
     if (lines[lines.length-1].endsWith(datestr))
-        break;
+        continue;
 
     lines[0] = lines[0].replace(done, todo);
     let content_new = lines.join('\n');
