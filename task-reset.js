@@ -142,13 +142,17 @@ for (let task of Draft.query('', 'inbox', ['daily-task'])) {
     let lines = task.lines;
 
     // Guard against invoking action repeatedly on same day
-    if (lines[lines.length-1].endsWith(datestr))
+    if (lines[2].endsWith(datestr))
         continue;
 
     lines[0] = lines[0].replace(done, todo);
-    lines.push((lines[0] === task.lines[0] ? todo : done) + ' ' + datestr);
-    if (date.getDay() === 0) {
-        lines.push('');
+
+    let record = (lines[0] === task.lines[0] ? todo : done) + ' ' + datestr;
+    lines.splice(2, 0, record);
+
+    // If today is Monday, add a spacing line
+    if (date.getDay() === 1) {
+        lines.splice(3, 0, '');
     }
 
     task.content = lines.join('\n');
