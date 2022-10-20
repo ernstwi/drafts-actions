@@ -12,6 +12,8 @@ These actions are used for daily reminders. For each task, create a draft tagged
 
 <Any other text over multiple lines>
 
+---
+
 [ ] mon 26/09/22
 [x] tue 27/09/22
 [x] wed 28/09/22
