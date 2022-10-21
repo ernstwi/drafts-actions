@@ -137,6 +137,7 @@ let ystrd = new Date();
 ystrd.setDate(ystrd.getDate() - 1);
 
 let commentRegex = / \/\/.*$/;
+let recordRegex = new RegExp(`^(${todo}|${done}) (.+?)( \/\/ .*)?$`);
 
 let ystrdStr = ystrd.format('ddd dd/mm/yy').toLowerCase();
 
@@ -147,13 +148,14 @@ for (let task of Draft.query('', 'inbox', ['daily-task'])) {
     let recordStart = lines.findIndex(x => x === '---') + 2;
 
     // Guard against invoking action repeatedly on same day
-    if (lines[recordStart].endsWith(ystrdStr))
+    let lastRecord = lines[recordStart].match(recordRegex);
+    if (lastRecord !== null && lastRecord[2] === ystrdStr)
         continue;
 
     let ystrdRecord = (lines[0].includes(done) ? done : todo) + ' ' + ystrdStr;
-    let comment = lines[0].match(commentRegex)[0];
+    let comment = lines[0].match(commentRegex);
     if (comment !== null)
-        ystrdRecord += comment;
+        ystrdRecord += comment[0];
 
     lines.splice(recordStart, 0, ystrdRecord);
 
