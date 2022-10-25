@@ -33,3 +33,9 @@ List drafts grouped by tags, for a given set of tags.
 - `new-draft-from-matching-lines.js`
 
 Create a new draft by filtering all lines in the current draft by regular expression.
+
+## Remind me tomorrow
+
+- `remind-me-tomorrow.js`
+
+Create a reminder from the current draft with an alarm at 09:00 tomorrow.
